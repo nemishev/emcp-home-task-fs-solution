@@ -1,0 +1,38 @@
+services:
+  # Make use of nginx reverse proxy for enhancing security and routing between client and server
+  reverse-proxy:
+    build: ./reverse-proxy
+    environment:
+      SERVER_PORT: ${SERVER_PORT}
+    ports:
+      - 80:80
+    restart: always
+    depends_on:
+      - server
+
+  server:
+    build:
+      context: ./server
+      target: development
+      args:
+        - NODE_VERSION=${NODE_VERSION}
+    environment:
+      - PORT=${SERVER_PORT}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+    expose:
+      - ${SERVER_PORT}
+    volumes:
+      - ./server/:/usr/share/app
+      - /usr/share/app/node_modules
+    restart: on-failure
+    depends_on:
+      - redis
+    command: npm run start:dev
+
+  redis:
+    container_name: redis
+    image: redis:7
+    expose:
+      - ${REDIS_PORT}
+    restart: on-failure
