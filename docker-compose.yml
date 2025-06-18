@@ -18,8 +18,7 @@ services:
         - NODE_VERSION=${NODE_VERSION}
     environment:
       - PORT=${SERVER_PORT}
-      - REDIS_HOST=${REDIS_HOST}
-      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_CONNECT_URL=${REDIS_CONNECT_URL}
     expose:
       - ${SERVER_PORT}
     volumes:
@@ -33,6 +32,4 @@ services:
   redis:
     container_name: redis
     image: redis:7
-    expose:
-      - ${REDIS_PORT}
     restart: on-failure

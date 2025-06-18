@@ -4,7 +4,7 @@ import {
   HealthIndicatorResult,
 } from '@nestjs/terminus';
 
-import { RedisService } from 'src/redis/redis.service';
+import { RedisService } from './redis.service';
 
 /**
  * Redis health indicator
@@ -17,17 +17,17 @@ export class RedisHealthIndicator {
   ) {}
 
   /**
-   * Check if Redis is healthy
+   * Check if the Redis is healthy
    *
    * @returns {HealthIndicatorResult} Health indicator for Redis
    */
   isHealthy(): HealthIndicatorResult {
     const indicator = this.healthIndicatorService.check('redis');
 
-    return this.redis.isReady()
+    return this.redis.isReady
       ? indicator.up()
       : indicator.down({
-          message: 'Redis is not ready',
+          message: 'Redis is unhealthy.',
         });
   }
 }
