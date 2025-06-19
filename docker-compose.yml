@@ -3,12 +3,33 @@ services:
   reverse-proxy:
     build: ./reverse-proxy
     environment:
+      CLIENT_PORT: ${CLIENT_PORT}
       SERVER_PORT: ${SERVER_PORT}
     ports:
       - 80:80
     restart: always
     depends_on:
+      - client
+
+  client:
+    build:
+      context: ./client
+      target: development
+      args:
+        - NODE_VERSION=${NODE_VERSION}
+    container_name: client
+    environment:
+      - PORT=${CLIENT_PORT}
+      - REDIS_CONNECT_URL=${REDIS_CONNECT_URL}
+    expose:
+      - ${CLIENT_PORT}
+    volumes:
+      - ./client/:/usr/share/app
+      - /usr/share/app/node_modules
+    restart: on-failure
+    depends_on:
       - server
+    command: npm run dev
 
   server:
     build:
@@ -16,6 +37,7 @@ services:
       target: development
       args:
         - NODE_VERSION=${NODE_VERSION}
+    container_name: server
     environment:
       - PORT=${SERVER_PORT}
       - REDIS_CONNECT_URL=${REDIS_CONNECT_URL}

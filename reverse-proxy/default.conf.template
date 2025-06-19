@@ -1,9 +1,18 @@
+upstream client {
+  server client:${CLIENT_PORT};
+}
+
 upstream server {
   server server:${SERVER_PORT};
 }
 
 server {
   listen 80;
+
+  # Client
+  location / {
+    proxy_pass http://client;
+  }
 
   # Proxy REST APT calls
   location /api/ {
