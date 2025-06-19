@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { PongService } from './pong.service';
+import { NotificationsGateway } from './notifications.gateway';
 import { StreamingModule } from '../streaming/streaming.module';
 
 @Module({
   imports: [StreamingModule],
-  providers: [PongService],
+  providers: [NotificationsGateway],
 })
-export class PongModule {}
+export class NotificationsModule {}

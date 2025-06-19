@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { HealthModule } from './health/health.module';
 import { PingModule } from './ping/ping.module';
 import { PongModule } from './pong/pong.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { PongModule } from './pong/pong.module';
     HealthModule,
     PingModule,
     PongModule,
+    NotificationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
