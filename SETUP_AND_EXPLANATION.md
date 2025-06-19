@@ -1,12 +1,12 @@
 ## SETUP
 
-1. Create the `.env` file from `.env.example`. Run `cp .env.example .env`
+1. Inside the project root dir run the `make start` command
 
-2. Run the app via the `docker-compose up -d` command
+2. Open the browser and type in `http://localhost` the access the ReactJs based frontend client.
 
-3. Open the browser and type in `http://localhost` the access the ReactJs based frontend client.
+3. The app is ready to accept `ping` commands. Click on the `Ping` button to receive a `pong` message.
 
-4. The app is ready to accept `ping` commands. Click on the `Ping` button to receive a `pong` message.
+4. To stop the running app run the `make down` command
 
 ## Actors
 
